@@ -1,13 +1,10 @@
-class_name Shelf
-var position: Vector2
+extends StaticBody2D
+class_name Chest
+
 var supported_types: Dictionary = {
 	Product.Type.SWORD: true,
 }
 var inventory: Dictionary = {}
-
-func _init(position: Vector2, initial_inventory: Dictionary = {}):
-	self.position = position
-	self.inventory = initial_inventory
 	
 func get_supported_types() -> Array:
 	return supported_types.keys()
@@ -25,7 +22,7 @@ func has_any_inventory() -> bool:
 	return inventory.values().any(func (quantity): return quantity > 0)
 
 func store_item(type: Product.Type) -> void:
-	if not inventory[type]:
+	if type not in inventory:
 		inventory[type] = 1
 	else:
 		inventory[type] += 1
@@ -36,3 +33,6 @@ func try_remove_item(type: Product.Type) -> bool:
 		return true
 	else:
 		return false
+		
+func get_block_type() -> BlockManager.Block:
+	return BlockManager.Block.CHEST

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://buh0obym33d6y"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://buh0obym33d6y"]
 
 [ext_resource type="Texture2D" uid="uid://cygrryx7ktmfe" path="res://tilemap.png" id="1_mban0"]
 
@@ -17,6 +17,12 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8
 agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_epsfy"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_r25sg"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
@@ -170,6 +176,7 @@ separation = Vector2i(1, 1)
 1:4/0/terrains_peering_bit/top_side = 0
 1:4/0/terrains_peering_bit/top_right_corner = 0
 1:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_en0w0")
+2:4/next_alternative_id = 6
 2:4/0 = 0
 2:4/0/terrain_set = 0
 2:4/0/terrain = 0
@@ -179,6 +186,9 @@ separation = Vector2i(1, 1)
 2:4/0/terrains_peering_bit/bottom_left_corner = 0
 2:4/0/terrains_peering_bit/left_side = 0
 2:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_epsfy")
+2:4/2 = 2
+2:4/2/transpose = true
+2:4/2/navigation_layer_0/polygon = SubResource("NavigationPolygon_r25sg")
 3:4/next_alternative_id = 4
 3:4/0 = 0
 3:4/0/terrain_set = 0

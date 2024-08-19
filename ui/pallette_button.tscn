@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn88d8nanoe5y"]
+
+[ext_resource type="Texture2D" uid="uid://7u4d1csym1dh" path="res://sprites/table.tres" id="1_b3jom"]
+
+[node name="PalletteButton" type="Button"]
+custom_minimum_size = Vector2(80, 80)
+toggle_mode = true
+text = "chest"
+icon = ExtResource("1_b3jom")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true

@@ -5,48 +5,31 @@ class_name Store
 @export var customer_scene: PackedScene
 @onready var timer: Timer = $customer_spawner
 @onready var spawn_location: Node2D = $spawn_location
+@onready var objects: Node2D = $NavigationRegion2D/objects
 
 const SPEEDUP_FACTOR = .98
-const INIT_WAIT_TIME = 3
 const MIN_WAIT_TIME = 1
 const MAX_CUSTOMERS = 100
+const MAX_BLOCKS = 20
 
 var registers: Array[Register] = []
-var shelves: Array[Shelf] = []
+var chests: Array[Chest] = []
 var unhelped_customers: Dictionary = {}
 var orders: Dictionary = {}
 
 signal store_updated(unhelped_customers: Array[Customer], orders: Dictionary)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	registers = create_registers()
-	shelves = create_shelves()
-	timer.start(INIT_WAIT_TIME)
-
+	pass
+	
+func start_game() -> void:
+	timer.start()
+	
 # the word "register" is overloaded
 func hire_worker(worker: Worker):
 	worker.order_taken.connect(_on_order_taken)
 	worker.item_fulfilled.connect(_on_item_fulfilled)
 	worker.needs_work.connect(func (): store_updated.emit(unhelped_customers, registers))
-
-func create_registers() -> Array[Register]:
-	var register_positions = tilemap.get_used_cells_by_id(-1, Vector2(0, 6))
-	var register_list: Array[Register] = []
-	for position in register_positions:
-		var world_position = to_global(tilemap.map_to_local(position))
-		register_list.append(Register.new(world_position))
-	return register_list
-	
-func create_shelves() -> Array[Shelf]:
-	var shelf_positions = tilemap.get_used_cells_by_id(-1, Vector2(3, 5))
-	var shelf_list: Array[Shelf] = []
-	for position in shelf_positions:
-		var world_position = to_global(tilemap.map_to_local(position))
-		shelf_list.append(Shelf.new(world_position, {
-			Product.Type.SWORD: 5
-		}))
-	return shelf_list
 
 func dequeue_customer_from_register(register_index):
 	if register_index >= 0 and register_index < registers.size():
@@ -125,3 +108,57 @@ func get_register_serving_customer(customer: Customer):
 func _on_timer_timeout() -> void:
 	spawn_customer()
 	timer.start(timer.wait_time * SPEEDUP_FACTOR)
+	
+func _get_objects_at_pos(position: Vector2) -> Array:
+	var space_state = get_world_2d().direct_space_state
+	var params = PhysicsPointQueryParameters2D.new()
+	params.position = position
+	var result = space_state.intersect_point(params)
+	return result
+
+func can_position_receive_block(position: Vector2):
+	var objs = _get_objects_at_pos(position)
+	print(objs)
+	if objs.size() > 0:
+		return false
+	var tile = tilemap.get_cell_atlas_coords(tilemap.local_to_map(to_local(position)))
+	if tile.x != 0 and tile.y != 4:
+		return false
+	return get_total_blocks() < MAX_BLOCKS
+
+func _on_block_manager_block_placed(position: Vector2, block: BlockManager.Block, scene: PackedScene) -> void:
+	if not can_position_receive_block(position):
+		return
+	var obj = scene.instantiate()
+	obj.position = position
+	objects.add_child(obj)
+	if obj is Register:
+		var register = obj as Register
+		registers.append(register)
+	elif obj is Chest:
+		var chest = obj as Chest
+		chests.append(chest)
+		# temp
+		chest.store_item(Product.Type.SWORD)
+		chest.store_item(Product.Type.SWORD)
+		chest.store_item(Product.Type.SWORD)
+		chest.store_item(Product.Type.SWORD)
+
+
+func _on_block_manager_block_removed(position: Vector2) -> void:
+	var objs = _get_objects_at_pos(position)
+	for obj in objs.map(func(d: Dictionary): return d["collider"]):
+		if obj is Chest:
+			chests.erase(obj)
+		elif obj is Register:
+			registers.erase(obj)
+		else:
+			print("unrecognized")
+		obj.queue_free()
+
+func get_total_blocks() -> int:
+	return registers.size() + chests.size() # + anvils.size() + cauldrons.size()
+
+
+func _on_hud_game_started() -> void:
+	start_game()

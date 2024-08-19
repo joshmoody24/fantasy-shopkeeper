@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cosu1koq1ab3w"]
+[gd_scene load_steps=4 format=3 uid="uid://da6bwn0eug4qh"]
 
 [ext_resource type="Texture2D" uid="uid://cfsx64jcd5wp0" path="res://sprites/customer.tres" id="2_ghlek"]
 [ext_resource type="Script" path="res://scripts/customer.gd" id="2_kqdmd"]
@@ -18,5 +18,7 @@ shape = SubResource("CircleShape2D_5wjdc")
 texture = ExtResource("2_ghlek")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+target_desired_distance = 5.0
 path_postprocessing = 1
 debug_enabled = true

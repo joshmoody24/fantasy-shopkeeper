@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsvymgdj0ax7s"]
+
+[ext_resource type="Script" path="res://ui/hud.gd" id="1_nlkid"]
+[ext_resource type="PackedScene" uid="uid://cn88d8nanoe5y" path="res://ui/pallette_button.tscn" id="1_sr0r1"]
+[ext_resource type="Texture2D" uid="uid://coqqm2ponuowk" path="res://sprites/closed_chest.tres" id="2_7shdg"]
+[ext_resource type="PackedScene" uid="uid://de3q4pmfwg522" path="res://prefabs/table.tscn" id="2_qlkro"]
+[ext_resource type="Texture2D" uid="uid://b6fd30ttu3s03" path="res://sprites/counter.tres" id="3_6ky5b"]
+[ext_resource type="PackedScene" uid="uid://qdrhg4kqppfb" path="res://prefabs/chest.tscn" id="3_phm6o"]
+[ext_resource type="Texture2D" uid="uid://wuwp3bsc8pmk" path="res://sprites/cauldron.tres" id="4_xfe7f"]
+
+[node name="HUD" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nlkid")
+table = ExtResource("2_qlkro")
+chest = ExtResource("3_phm6o")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+alignment = 1
+
+[node name="register_pallette" parent="MarginContainer/HFlowContainer" instance=ExtResource("1_sr0r1")]
+layout_mode = 2
+text = "counter"
+icon = ExtResource("3_6ky5b")
+
+[node name="chest_pallette" parent="MarginContainer/HFlowContainer" instance=ExtResource("1_sr0r1")]
+layout_mode = 2
+icon = ExtResource("2_7shdg")
+
+[node name="anvil_pallette" parent="MarginContainer/HFlowContainer" instance=ExtResource("1_sr0r1")]
+layout_mode = 2
+text = "craft"
+
+[node name="brew_pallette" parent="MarginContainer/HFlowContainer" instance=ExtResource("1_sr0r1")]
+layout_mode = 2
+text = "cauldron"
+icon = ExtResource("4_xfe7f")
+
+[connection signal="pressed" from="MarginContainer/HFlowContainer/register_pallette" to="." method="_on_register_pallette_pressed"]
+[connection signal="pressed" from="MarginContainer/HFlowContainer/chest_pallette" to="." method="_on_chest_pallette_pressed"]
+[connection signal="pressed" from="MarginContainer/HFlowContainer/anvil_pallette" to="." method="_on_craft_pallette_pressed"]
+[connection signal="pressed" from="MarginContainer/HFlowContainer/brew_pallette" to="." method="_on_brew_pallette_pressed"]

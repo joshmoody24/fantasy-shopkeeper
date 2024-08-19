@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvs116bjvvkdf"]
+
+[ext_resource type="PackedScene" uid="uid://b8110sijic37i" path="res://prefabs/store.tscn" id="1_xfi6q"]
+[ext_resource type="PackedScene" uid="uid://bsvymgdj0ax7s" path="res://ui/hud.tscn" id="2_j4pjo"]
+[ext_resource type="Script" path="res://controllable_camera.gd" id="2_tpfll"]
+
+[node name="world" type="Node2D"]
+texture_filter = 1
+
+[node name="store" parent="." instance=ExtResource("1_xfi6q")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(152, 35)
+zoom = Vector2(2, 2)
+script = ExtResource("2_tpfll")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_j4pjo")]

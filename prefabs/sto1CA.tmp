@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://b8110sijic37i"]
+[gd_scene load_steps=5 format=4 uid="uid://b8110sijic37i"]
 
 [ext_resource type="TileSet" uid="uid://buh0obym33d6y" path="res://sprites/dungeon-tilemap.tres" id="1_2b8d0"]
 [ext_resource type="Script" path="res://scripts/store.gd" id="1_qm0wr"]
-[ext_resource type="PackedScene" uid="uid://b0v8o5kddlq15" path="res://prefabs/worker.tscn" id="4_gyv1e"]
-[ext_resource type="PackedScene" uid="uid://da6bwn0eug4qh" path="res://prefabs/customer.tscn" id="4_kd5vq"]
+[ext_resource type="PackedScene" path="res://prefabs/customer.tscn" id="4_kd5vq"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fghih"]
 vertices = PackedVector2Array(92, 92, -92, 92, -92, -76, 92, -76)
@@ -30,9 +29,6 @@ wait_time = 4.0
 one_shot = true
 
 [node name="spawn_location" type="Node2D" parent="."]
-position = Vector2(0, -85)
-
-[node name="worker" parent="." node_paths=PackedStringArray("store") instance=ExtResource("4_gyv1e")]
-store = NodePath("..")
+position = Vector2(33, -55)
 
 [connection signal="timeout" from="customer_spawner" to="." method="_on_timer_timeout"]

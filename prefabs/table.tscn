@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://de3q4pmfwg522"]
+
+[ext_resource type="Texture2D" uid="uid://7u4d1csym1dh" path="res://sprites/table.tres" id="1_0udvs"]
+[ext_resource type="Script" path="res://scripts/register.gd" id="1_tgn3b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4mia"]
+size = Vector2(16, 16)
+
+[node name="table" type="StaticBody2D"]
+script = ExtResource("1_tgn3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0udvs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n4mia")

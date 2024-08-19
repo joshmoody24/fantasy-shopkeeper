@@ -1,9 +1,6 @@
+extends StaticBody2D
 class_name Register
-var position: Vector2
 var queue: Array = []
-
-func _init(position: Vector2):
-	self.position = position
 
 func enqueue_customer(customer) -> int:
 	queue.append(customer)
@@ -25,3 +22,6 @@ func is_currently_serving(customer: Customer):
 
 func contains(customer: Customer):
 	return customer in queue
+
+func get_block_type() -> BlockManager.Block:
+	return BlockManager.Block.CHEST

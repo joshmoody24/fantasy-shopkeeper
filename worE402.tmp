@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvs116bjvvkdf"]
+[gd_scene load_steps=11 format=3 uid="uid://cvs116bjvvkdf"]
 
 [ext_resource type="PackedScene" uid="uid://b8110sijic37i" path="res://prefabs/store.tscn" id="1_xfi6q"]
 [ext_resource type="PackedScene" uid="uid://bsvymgdj0ax7s" path="res://ui/hud.tscn" id="2_j4pjo"]
@@ -7,10 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://de3q4pmfwg522" path="res://prefabs/table.tscn" id="5_16y7b"]
 [ext_resource type="PackedScene" uid="uid://qdrhg4kqppfb" path="res://prefabs/chest.tscn" id="6_1kg8c"]
 [ext_resource type="Texture2D" uid="uid://7u4d1csym1dh" path="res://sprites/table.tres" id="6_7nfpn"]
-[ext_resource type="Texture2D" uid="uid://coqqm2ponuowk" path="res://sprites/closed_chest.tres" id="8_skpqk"]
+[ext_resource type="Texture2D" uid="uid://bh6d52eci187i" path="res://sprites/chest.tres" id="8_xe3ce"]
 [ext_resource type="Texture2D" uid="uid://b8x1tdb1crmp4" path="res://sprites/anvil.tres" id="9_7woxj"]
 [ext_resource type="Texture2D" uid="uid://wuwp3bsc8pmk" path="res://sprites/cauldron.tres" id="10_y766h"]
-[ext_resource type="Texture2D" uid="uid://ch3ht41yamlsj" path="res://sprites/erase.tres" id="11_uek2o"]
 
 [node name="world" type="Node2D"]
 texture_filter = 1
@@ -36,14 +35,10 @@ script = ExtResource("4_eg5mq")
 table = ExtResource("5_16y7b")
 table_preview = ExtResource("6_7nfpn")
 chest = ExtResource("6_1kg8c")
-chest_preview = ExtResource("8_skpqk")
+chest_preview = ExtResource("8_xe3ce")
 anvil_preview = ExtResource("9_7woxj")
 cauldron_preview = ExtResource("10_y766h")
-erase_preview = ExtResource("11_uek2o")
 
 [node name="preview" type="Sprite2D" parent="block_manager"]
 
-[connection signal="game_started" from="CanvasLayer/HUD" to="store" method="_on_hud_game_started"]
 [connection signal="pallete_item_selected" from="CanvasLayer/HUD" to="block_manager" method="_on_hud_pallete_item_selected"]
-[connection signal="block_placed" from="block_manager" to="store" method="_on_block_manager_block_placed"]
-[connection signal="block_removed" from="block_manager" to="store" method="_on_block_manager_block_removed"]
