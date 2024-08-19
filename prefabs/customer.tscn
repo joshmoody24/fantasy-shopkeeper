@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cosu1koq1ab3w"]
+
+[ext_resource type="Texture2D" uid="uid://cfsx64jcd5wp0" path="res://sprites/customer.tres" id="2_ghlek"]
+[ext_resource type="Script" path="res://scripts/customer.gd" id="2_kqdmd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wjdc"]
+radius = 3.0
+
+[node name="customer" type="CharacterBody2D"]
+position = Vector2(0, 84)
+script = ExtResource("2_kqdmd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_5wjdc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ghlek")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
